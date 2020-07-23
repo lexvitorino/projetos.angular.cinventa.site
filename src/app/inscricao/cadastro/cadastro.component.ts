@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { environment } from './../../environments/environment.prod';
-import { InscricaoService } from './inscricao.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { InscricaoService } from '../../inscricao/inscricao.service';
+import { environment } from './../../../environments/environment.prod';
 
 @Component({
-  selector: 'app-inscricao',
-  templateUrl: './inscricao.component.html',
-  styleUrls: ['./inscricao.component.scss']
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.scss']
 })
-export class InscricaoComponent implements OnInit {
+export class CadastroComponent implements OnInit {
 
   formData: FormGroup;
   stage: number;

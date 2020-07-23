@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../environments/environment';
-import { InscricaoService } from '../inscricao/inscricao.service';
+import { environment } from '../../../environments/environment';
+import { InscricaoService } from '../../inscricao/inscricao.service';
 
 @Component({
   selector: 'app-confirma',

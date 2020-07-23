@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { InscricaoService } from '../inscricao/inscricao.service';
-import { environment } from './../../environments/environment';
-import { ExcelUtils } from '../shared/excel.util';
+import { InscricaoService } from '../../inscricao/inscricao.service';
+import { ExcelUtils } from '../../shared/excel.util';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-exportar',

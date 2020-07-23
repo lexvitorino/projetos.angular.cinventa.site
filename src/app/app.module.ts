@@ -7,28 +7,21 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConfirmaComponent } from './confirma/confirma.component';
-import { InscricaoComponent } from './inscricao/inscricao.component';
-import { PesquisarComponent } from './pesquisar/pesquisar.component';
-import { ExportarComponent } from './exportar/exportar.component';
+import { InscricaoModule } from './inscricao/inscricao.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    InscricaoComponent,
-    PesquisarComponent,
-    ConfirmaComponent,
-    ExportarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule, // required animations module
-    NgxQRCodeModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    InscricaoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

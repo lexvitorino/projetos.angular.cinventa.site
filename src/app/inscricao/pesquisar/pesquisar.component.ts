@@ -1,8 +1,8 @@
-import { environment } from './../../environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { InscricaoService } from '../inscricao/inscricao.service';
+import { InscricaoService } from '../../inscricao/inscricao.service';
+import { environment } from './../../../environments/environment.prod';
 
 @Component({
   selector: 'app-pesquisar',
