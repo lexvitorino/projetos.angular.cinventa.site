@@ -1,0 +1,35 @@
+<div class="flex-container">
+  <div class="col-lg-6 col-md-10 col-sm-12">
+    <div class="row" class="text-center mb-4">
+      <div class="col-lg-12">
+        <img src="{{baseUrl}}/assets/logo.png" alt="CGErmelino" style="opacity: 0.5;">
+      </div>
+    </div>
+    <form novalidate autocomplete="off" autocapitalize="on" [formGroup]="formData">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <select class="form-control form-control-lg" formControlName="data" autofocus (change)="getEventos()">
+              <option [value]="d.id" *ngFor="let d of datas">{{d.value}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <select class="form-control form-control-lg" formControlName="evento">
+              <option value="">Qual encontro deseja exportar?</option>
+              <option [value]="d.id" *ngFor="let d of eventos">{{d.value}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <button type="button" class="btn btn-block btn-info" (click)="exportar()">Exportar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

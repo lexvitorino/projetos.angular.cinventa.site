@@ -1,0 +1,72 @@
+<div class="flex-container">
+  <div class="col-lg-6 col-md-10 col-sm-12">
+    <div class="row" class="text-center mb-4">
+      <div class="col-lg-12">
+        <img src="{{baseUrl}}/assets/logo.png" alt="CGErmelino" style="opacity: 0.5;">
+      </div>
+    </div>
+    <form novalidate autocomplete="off" autocapitalize="on" [formGroup]="formData">
+      <div class="row" *ngIf="stage == 1">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <select class="form-control form-control-lg" formControlName="data" autofocus (change)="getEventos()">
+              <option [value]="d.id" *ngFor="let d of datas">{{d.value}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <select class="form-control form-control-lg" formControlName="evento">
+              <option value="">Qual encontro deseja participar?</option>
+              <option [value]="d.id" *ngFor="let d of eventos">{{d.value}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <input class="form-control form-control-lg" type="email" placeholder="Informe o seu e-mail"
+              formControlName="email">
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="stage == 2">
+        <div class="col-lg-12 text-center">
+          <div class="form-group">
+            <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass" errorCorrectionLevel="L">
+            </ngx-qrcode>
+          </div>
+        </div>
+        <div class="col-lg-12 text-center">
+          <h5>[ {{ data.id }} ]</h5>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+        <div class="col-lg-12 text-center">
+          <h4>Salve e apresente esse QRCode quando chegar na igreja para confirmar sua entrada</h4>
+          <h6>Ao salvar, sempre que entrar irá apresentar o QRCode salvo</h6>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-lg-6" *ngIf="stage > 1">
+          <div class="form-group">
+            <button type="button" class="btn btn-block btn-custom" (click)="next()">{{ lbButton }}</button>
+          </div>
+        </div>
+        <div class="col-lg-12" *ngIf="stage == 1">
+          <div class="form-group">
+            <button type="button" class="btn btn-block btn-info" (click)="next()">{{ lbButton }}</button>
+          </div>
+        </div>
+        <div class="col-lg-6" *ngIf="stage === 2">
+          <div class="form-group">
+            <button type="button" class="btn btn-block" (click)="first()">Inicio</button>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <button type="button" class="btn btn-block btn-success" routerLink="/inscricao">Nova inscrição</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
