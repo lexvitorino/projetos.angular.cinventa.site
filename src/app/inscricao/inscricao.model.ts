@@ -21,6 +21,7 @@ interface VagasValidasModel {
 interface Inscricao {
   id: number;
   evento: string;
+  cadeira: string;
   data: string;
   email: string;
   nome: string;

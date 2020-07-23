@@ -44,6 +44,7 @@ export class CadastroComponent implements OnInit {
       id: [null],
       evento: ['', [Validators.required]],
       data: ['', [Validators.required]],
+      cadeira: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       nome: ['', [Validators.required]],
       sobrenome: ['', [Validators.required]],
@@ -88,8 +89,7 @@ export class CadastroComponent implements OnInit {
   vagasValidas() {
     this.data = Object.assign({}, this.data, this.formData.value);
     return new Promise((resolve, reject) => {
-      const dupla = (this.data.conjuge && this.data.conjuge !== '') ? 'S' : 'N';
-      this.service.vagasValidas(this.data.evento, this.data.data, dupla).subscribe(res => {
+      this.service.vagasValidas(this.data.evento, this.data.data, this.data.cadeira).subscribe(res => {
         if (res.message.hasError) {
           this.toastr.info(res.message.errors[0], 'Inscrições para os cultos!');
           this.stage = 1;
@@ -108,7 +108,7 @@ export class CadastroComponent implements OnInit {
   validaEmailExiste() {
     this.data = Object.assign({}, this.data, this.formData.value);
     return new Promise((resolve, reject) => {
-      this.service.byEventoAndData(this.data.evento, this.data.data).subscribe(res => {
+      this.service.byEventoAndDataAndEmail(this.data.evento, this.data.data, this.data.email).subscribe(res => {
         if (!res.message.hasError) {
           if (res.data[0].id > 0) {
             this.toastr.info('Já existe inscrição para o evento informado', 'Inscrições para os cultos!');
@@ -130,8 +130,11 @@ export class CadastroComponent implements OnInit {
         if (!this.data.evento || this.data.evento === '') {
           this.toastr.warning('Encontro não informado', 'Inscrições para os cultos!');
           return;
-        } else if (!this.data.evento || this.data.evento === '') {
-          this.toastr.warning('Encontro não informado', 'Inscrições para os cultos!');
+        } else if (!this.data.data || this.data.data === '') {
+          this.toastr.warning('Data não informado', 'Inscrições para os cultos!');
+          return;
+        } else if (!this.data.cadeira || this.data.cadeira === '') {
+          this.toastr.warning('Cadeira não informado', 'Inscrições para os cultos!');
           return;
         }
         if (await this.vagasValidas()) {
@@ -188,6 +191,7 @@ export class CadastroComponent implements OnInit {
           id: null,
           email: '',
           nome: '',
+          cadeira: '',
           sobrenome: '',
           conjuge: '',
           area: '',
