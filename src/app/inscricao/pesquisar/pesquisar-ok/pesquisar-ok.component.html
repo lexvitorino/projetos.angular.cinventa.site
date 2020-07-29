@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <app-header topHeaderCss="top-busca" headerCss="tit-busca" headerTitle="Resultado">
+  </app-header>
+  <!-- Conteudo-->
+  <div class="container form-busca">
+    <form>
+      <div class="alert">
+        <i class="fas fa-check-circle"></i>
+        <div class="alert alert-success" role="alert">
+          Obaaaa!!! Sua inscrição foi realizada para o e-mail:<span>{{ data.email }}</span>
+        </div>
+      </div>
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td>Nome</td>
+            <td>{{ data.nome }}</td>
+          </tr>
+          <tr>
+            <td>Nome do Cônjuge</td>
+            <td>{{ data.conjuge }}</td>
+          </tr>
+          <tr>
+            <td>Tipo de Assento</td>
+            <td>{{ data.cadeira == 'Simples' ? 'Individual' : 'Casal' }}</td>
+          </tr>
+          <tr>
+            <td>Encontro</td>
+            <td>{{ data.evento }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-secondary btn-lg btn-block" routerLink="/">Ir para home</button>
+    </form>
+  </div>
+  <!-- Fim Conteudo-->
+  <app-footer></app-footer>
+</div>

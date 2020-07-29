@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PesquisarComponent } from './inscricao/pesquisar/pesquisar.component';
+import { OpcaoComponent } from './inscricao/opcao/opcao.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/pesquisar', pathMatch: 'full' },
+  { path: '', redirectTo: '/opcao', pathMatch: 'full' },
   {
     path: '',
-    component: PesquisarComponent,
+    component: OpcaoComponent,
     children: [{
       path: 'inscricao',
       loadChildren: () => import('./inscricao/inscricao.module').then(mod => mod.InscricaoModule)

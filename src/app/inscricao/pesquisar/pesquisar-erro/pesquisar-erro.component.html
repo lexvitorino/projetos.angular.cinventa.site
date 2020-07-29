@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <app-header topHeaderCss="top-busca" headerCss="tit-busca" headerTitle="Resultado">
+  </app-header>
+  <!-- Conteudo-->
+  <div class="container form-busca-erro">
+    <form>
+
+      <div class="alert">
+        <i class="fas fa-times-circle"></i>
+        <div class="alert alert-danger" role="alert">
+          Não encontramos a inscrição para o e-mail:<span>{{ data.email }}</span>
+        </div>
+      </div>
+
+      <span>Não se preocupe, você pode clicar no botão abaixo e realizar sua inscrição.</span>
+
+      <h2>Fazer minha inscrição</h2>
+      <button type="button" class="btn btn-success btn-lg btn-block" routerLink="/cadastro">Clique Aqui!</button>
+    </form>
+  </div>
+  <!-- Fim Conteudo-->
+  <app-footer></app-footer>
+</div>

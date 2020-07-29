@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row top top-sucesso">
+    <div class="col logo-comuna"><img src="assets/img/logo-comuna.png" alt="Logo Comuna Ermelino" class="img-thumbnail">
+    </div>
+  </div>
+  <!-- Conteudo-->
+  <div class="container cadastro-concluido">
+    <div class="alert-sucesso">
+      <i class="far fa-check-circle"></i>
+      <span>Inscrição realizada!</span>
+    </div>
+    <hr>
+    <div class="alert-usuario">
+      <h2>{{data.nome}} {{data.sobrenome}}</h2>
+      <span>Aguardamos você para congregarmos juntos!</span>
+    </div>
+    <div class="alert-msg">
+      <div class="row">
+        <div class="col-2"><i class="fas fa-envelope"></i></div>
+        <div class="col-10">Um e-mail foi enviado para você com os dados da inscrição.</div>
+      </div>
+    </div>
+    <div class="alert-pesquisa">
+      <span>Caso não tenha recebido o e-mail, verifique seu lixo eletrônico ou <a routerLink="/pesquisar"
+          class="link-pesquisa">clique
+          aqui</a> para pesquisar sua inscrição.</span>
+    </div>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" routerLink="/">Ir para home</button>
+  </div>
+  <!-- Fim Conteudo-->
+  <app-footer></app-footer>
+</div>

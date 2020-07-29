@@ -15,7 +15,7 @@ export class InscricaoService {
   ) {
   }
 
-  public create(data: Inscricao): Observable<InscricaoModel> {
+  public create(data: any): Observable<InscricaoModel> {
     return this.http
       .post<InscricaoModel>(`${environment.service_url}/inscription/create`, data)
       .pipe(
@@ -39,16 +39,12 @@ export class InscricaoService {
       );
   }
 
-  public getEvents(): Observable<EventoModel> {
+  public eventos(): Observable<EventoModel> {
     return this.http
       .get<EventoModel>(`${environment.service_url}/event`)
       .pipe(
         catchError(ErrorService.handleError)
       );
-  }
-
-  public pessoas(): Observable<any> {
-    return this.http.get<any>(`assets/pessoas.json`);
   }
 
   public confirmar(id: number): Observable<InscricoesModel> {
@@ -59,9 +55,9 @@ export class InscricaoService {
       );
   }
 
-  public vagasValidas(chave, data, duplas): Observable<VagasValidasModel> {
+  public byEmail(data: any): Observable<InscricoesModel> {
     return this.http
-      .get<VagasValidasModel>(`${environment.service_url}/inscription/vagasValidas/${chave}/${data}/${duplas}`)
+      .get<InscricoesModel>(`${environment.service_url}/inscription/byEmail/${data.email}/${data.ativo ? 1 : 0}`)
       .pipe(
         catchError(ErrorService.handleError)
       );

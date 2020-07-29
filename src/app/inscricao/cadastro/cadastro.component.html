@@ -1,144 +1,55 @@
-<div class="flex-container">
-  <div class="col-lg-6 col-md-10 col-sm-12">
-    <div class="row" class="text-center mb-4">
-      <div class="col-lg-12">
-        <img src="{{baseUrl}}/assets/logo.png" alt="CGErmelino" style="opacity: 0.5;">
+<div class="container-fluid">
+  <app-header topHeaderCss="top-cadastro" headerCss="tit-cadastro" headerTitle="Inscrição">
+  </app-header>
+  <!-- Conteudo-->
+  <div class="container form-cadastro">
+    <form autocomplete="off" [formGroup]="formData">
+      <h2>Selecione os campos abaixo</h2>
+      <div class="form-group">
+        <!-- Selecionar encontro -->
+        <select class="form-control form-control-lg" name="evento" formControlName="evento" (change)="onChangeEvento()">
+          <option value="">Qual encontro deseja participar?</option>
+          <option [value]="d.chave" *ngFor="let d of eventos">{{d.descricao}}</option>
+        </select>
       </div>
-    </div>
-    <form novalidate autocomplete="off" autocapitalize="on" [formGroup]="formData">
-      <div class="row" *ngIf="stage == 1">
-        <div class="col-lg-12">
-          <div class="form-group">
-            <select class="form-control form-control-lg" formControlName="data" autofocus (change)="getEventos()">
-              <option [value]="d.id" *ngFor="let d of datas">{{d.value}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <select class="form-control form-control-lg" formControlName="evento">
-              <option value="">Qual encontro deseja participar?</option>
-              <option [value]="d.id" *ngFor="let d of eventos">{{d.value}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <select class="form-control form-control-lg" formControlName="cadeira">
-              <option value="">Para qual tipo de cadeira?</option>
-              <option value="Simples">Simples</option>
-              <option value="Dupla">Dupla</option>
-            </select>
-          </div>
-        </div>
+      <div class="form-group" *ngIf="hasEvento">
+        <!-- Data do Encontro -->
+        <input type="text" class="form-control" name="dataFmt" formControlName="dataFmt" placeholder="dd/mm/yyyy">
+        <cite>Este campo não é selecionável</cite>
       </div>
-      <div class="row" *ngIf="stage == 2">
-        <div class="col-lg-12">
-          <div class="form-group">
-            <input class="form-control form-control-lg" type="email" placeholder="Informe o seu e-mail"
-              formControlName="email" autofocus (blur)="isValidaEmailExiste()">
-          </div>
+      <div class="form-group" *ngIf="hasEvento">
+        <!-- Selecionar tipo de cadeira -->
+        <label>Selecione o tipo de cadeira</label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline1" name="cadeira" formControlName="cadeira" value="Simples"
+            class="custom-control-input" (change)="onChangeCadeira()">
+          <label class="custom-control-label" for="customRadioInline1">Individual</label>
         </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Informe o nome" formControlName="nome"
-              autofocus>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Informe o sobrenome"
-              formControlName="sobrenome">
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Informe o cônjuge"
-              formControlName="conjuge">
-          </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline2" name="cadeira" formControlName="cadeira" value="Dupla"
+            class="custom-control-input" (change)="onChangeCadeira()">
+          <label class="custom-control-label" for="customRadioInline2">Casal</label>
         </div>
       </div>
-      <div class="row" *ngIf="stage == 3">
-        <div class="col-lg-12">
-          <div class="form-group">
-            <select class="form-control form-control-lg" formControlName="area" autofocus (change)="onAreaChange()">
-              <option value="">Qual sua área?</option>
-              <option [value]="d" *ngFor="let d of areas">{{d}}</option>
-            </select>
-          </div>
-        </div>
-        <!--
-        <div class="col-lg-12">
-          <div class="form-group">
-            <select class="form-control form-control-lg" formControlName="supervisor" (change)="onAreaSupervisor()">
-              <option value="">Qual sua supervisão?</option>
-              <option [value]="d" *ngFor="let d of supervisores">{{d}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-group">
-            <select class="form-control form-control-lg" formControlName="lider">
-              <option value="">Quem é seu lider?</option>
-              <option [value]="d" *ngFor="let d of lideres">{{d}}</option>
-            </select>
-          </div>
-        </div>
-        -->
+      <div class="form-group" *ngIf="hasEvento && hasCadeira">
+        <!-- Nome -->
+        <input type="text" name="nome" class="form-control tx-cad" placeholder="Digite seu nome" formControlName="nome">
       </div>
-      <div class="row" *ngIf="stage == 4">
-        <div class="col-lg-12 text-center">
-          <div class="form-group">
-            <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass" errorCorrectionLevel="L">
-            </ngx-qrcode>
-          </div>
-        </div>
-        <div class="col-lg-12 text-center">
-          <h5>[ {{ data.id }} ]</h5>
-        </div>
-        <div class="col-lg-12 text-center">
-          <h6>{{ data.nome }} {{ data.sobrenome }}</h6>
-        </div>
-        <div class="clearfix">&nbsp;</div>
-        <div class="col-lg-12 text-center">
-          <h4>Salve e apresente esse QRCode quando chegar na igreja para confirmar sua entrada</h4>
-          <h6>Ao salvar, sempre que entrar irá apresentar o QRCode salvo</h6>
-        </div>
+      <div class="form-group" *ngIf="hasConjuge && hasEvento && hasCadeira">
+        <!-- Nome Conjuge -->
+        <input type="text" name="Conjuge" class="form-control tx-cad" placeholder="Digite o nome do Cônjuge"
+          formControlName="conjuge">
       </div>
-      <div class="row" *ngIf="stage == 5">
-        <div class="col-lg-12 text-center">
-          <h4>Ótimo... {{ data.nome }} {{ data.sobrenome }}</h4>
-          <h5>Aguardamos você para podermos congregar juntos!</h5>
-          <h6>UM EMAIL FOI ENVIADO PARA VOCÊ COM OS DADOS DA INSCRIÇÃO</h6>
-        </div>
+      <div class="form-group" *ngIf="hasEvento && hasCadeira">
+        <!-- Nome Email -->
+        <input type="email" name="email" class="form-control tx-cad" placeholder="Digite seu email"
+          formControlName="email">
       </div>
-      <div class="row mt-2">
-        <div class="col-lg-6" *ngIf="stage > 1">
-          <div class="form-group">
-            <button type="button" class="btn btn-block btn-custom" (click)="next()">{{ lbButton }}</button>
-          </div>
-        </div>
-        <div class="col-lg-12" *ngIf="stage == 1">
-          <div class="form-group">
-            <button type="button" class="btn btn-block btn-custom" (click)="next()">{{ lbButton }}</button>
-          </div>
-        </div>
-        <div class="col-lg-6" *ngIf="stage > 1">
-          <div class="form-group">
-            <button type="button" class="btn btn-block" (click)="first()">Inicio</button>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-lg-12" *ngIf="stage == 1">
-          <div class="form-group">
-            <button type="button" class="btn btn-block btn-success" routerLink="/pesquisar">Já tenho uma
-              conta</button>
-          </div>
-        </div>
-      </div>
+
+      <button type="button" class="btn btn-success btn-lg btn-block" (click)="onSubmit()"
+        *ngIf="hasEvento && hasCadeira">Confirmar!</button>
     </form>
-    <small class="text-center">Desenvolvido por <strong><a href="http://mi7dev.com.br"
-          target="_blank">mi7dev.com.br</a></strong></small>
   </div>
+  <!-- Fim Conteudo-->
+  <app-footer></app-footer>
 </div>

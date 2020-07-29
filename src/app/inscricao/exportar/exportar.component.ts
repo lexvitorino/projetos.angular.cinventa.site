@@ -33,7 +33,7 @@ export class ExportarComponent implements OnInit {
       data: ['', [Validators.required]],
     });
 
-    this.service.getEvents().subscribe(resp => {
+    this.service.eventos().subscribe(resp => {
       if (resp.data) {
         this.eventoModel = resp;
         resp.data.forEach((e: Evento) => {
