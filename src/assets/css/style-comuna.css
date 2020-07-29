@@ -343,6 +343,12 @@ body {
 .alert {
   text-align: center;
 }
+.cadastro-erro .alert-erro span + span {
+  display: block;
+  clear: both;
+  font-size: 12px;
+  font-weight: 900;
+}
 .cadastro-erro .alert {
   padding: 10px 0;
   text-align: center;
@@ -366,6 +372,9 @@ body {
   background: transparent url("../img/load-min.gif") no-repeat 0 0;
   width: 56px !important;
   height: 56px !important;
+}
+.bt-pesquisa {
+  display: none;
 }
 /*desktop*/
 @media (min-width: 1200px) {

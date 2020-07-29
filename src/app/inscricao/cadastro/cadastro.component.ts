@@ -44,24 +44,24 @@ export class CadastroComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formData.invalid) {
-      if (this.formData.controls['evento'].value === '') {
-        this.toastr.warning('Evento não preenchido!', 'Inscrições para os cultos!');
+    if (this.formData.invalid) {
+      if (this.formData.controls['evento'].invalid) {
+        this.toastr.error('Evento não preenchido!', 'Inscrições para os cultos!');
         return;
-      } else if (this.formData.controls['cadeira'].value === '') {
-        this.toastr.warning('Cadeira não preenchida!', 'Inscrições para os cultos!');
+      } else if (this.formData.controls['cadeira'].invalid) {
+        this.toastr.error('Cadeira não preenchida!', 'Inscrições para os cultos!');
         return;
-      } else if (this.formData.controls['data'].value === '') {
-        this.toastr.warning('Data não preenchida!', 'Inscrições para os cultos!');
+      } else if (this.formData.controls['data'].invalid) {
+        this.toastr.error('Data não preenchida!', 'Inscrições para os cultos!');
         return;
-      } else if (this.formData.controls['nome'].value === '') {
-        this.toastr.warning('Nome não preenchida!', 'Inscrições para os cultos!');
+      } else if (this.formData.controls['nome'].invalid) {
+        this.toastr.error('Nome não preenchida!', 'Inscrições para os cultos!');
         return;
-      } else if (this.formData.controls['cadeira'].value == 'Dupla' && this.formData.controls['conjuge'].value === '') {
-        this.toastr.warning('Conjuge não preenchida!', 'Inscrições para os cultos!');
+      } else if (this.formData.controls['cadeira'].value === 'Dupla' && this.formData.controls['conjuge'].value === '') {
+        this.toastr.error('Conjuge não preenchida!', 'Inscrições para os cultos!');
         return;
-      } else if (this.formData.controls['email'].value === '') {
-        this.toastr.warning('E-mail não preenchida!', 'Inscrições para os cultos!');
+      } else if (this.formData.controls['email'].invalid) {
+        this.toastr.error('E-mail não preenchida ou inválido!', 'Inscrições para os cultos!');
         return;
       }
     }
@@ -78,7 +78,7 @@ export class CadastroComponent implements OnInit {
     this.service.create(data).subscribe(res => {
       if (res.message.hasError) {
         this.router.navigate(['/cadastro-erro']);
-        this.toastr.warning(res.message.errors[0], 'Inscrições para os cultos!');
+        localStorage.setItem('insc.data', JSON.stringify(res.message));
       } else {
         this.router.navigate(['/cadastro-ok']);
         localStorage.setItem('insc.data', JSON.stringify(res.data));
