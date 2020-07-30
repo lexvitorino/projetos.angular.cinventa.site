@@ -28,22 +28,62 @@
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="customRadioInline2" name="cadeira" formControlName="cadeira" value="Dupla"
             class="custom-control-input" (change)="onChangeCadeira()">
-          <label class="custom-control-label" for="customRadioInline2">Casal</label>
+          <label class="custom-control-label" for="customRadioInline2">Dupla</label>
         </div>
       </div>
       <div class="form-group" *ngIf="hasEvento && hasCadeira">
         <!-- Nome -->
-        <input type="text" name="nome" class="form-control tx-cad" placeholder="Digite seu nome" formControlName="nome">
+        <input type="text" name="nome" class="form-control tx-cad" placeholder="Digite seu nome completo"
+          formControlName="nome">
       </div>
       <div class="form-group" *ngIf="hasConjuge && hasEvento && hasCadeira">
         <!-- Nome Conjuge -->
-        <input type="text" name="Conjuge" class="form-control tx-cad" placeholder="Digite o nome do Cônjuge"
+        <input type="text" name="Conjuge" class="form-control tx-cad" placeholder="Digite o nome do seu par"
           formControlName="conjuge">
       </div>
       <div class="form-group" *ngIf="hasEvento && hasCadeira">
         <!-- Nome Email -->
         <input type="email" name="email" class="form-control tx-cad" placeholder="Digite seu email"
           formControlName="email">
+      </div>
+      <div class="form-group">
+        <!-- Selecionar area -->
+        <select class="form-control" name="area" formControlName="area" *ngIf="hasEvento && hasCadeira">
+          <option value="">Supervisor de area</option>
+          <option value="Visitante">Visitante</option>
+          <option value="Alexandre e Bruna">Alexandre e Bruna</option>
+          <option value="Alisson e Camila">Alisson e Camila</option>
+          <option value="Beto e Diomar">Beto e Diomar</option>
+          <option value="Edson e Joice">Edson e Joice</option>
+          <option value="Eduardo e Simone">Eduardo e Simone</option>
+          <option value="Fábio e Jaíra">Fábio e Jaíra</option>
+          <option value="Felipe e Luciana">Felipe e Luciana</option>
+          <option value="Fernando e Talita">Fernando e Talita</option>
+          <option value="Flávio e Edite">Flávio e Edite</option>
+          <option value="Gilberto e Suzi">Gilberto e Suzi</option>
+          <option value="Gleison e Vivian">Gleison e Vivian</option>
+          <option value="Henrique e Camila">Henrique e Camila</option>
+          <option value="Hugo e Bárbara">Hugo e Bárbara</option>
+          <option value="João e Anny">João e Anny</option>
+          <option value="José e Adriana">José e Adriana</option>
+          <option value="Leonardo">Leonardo</option>
+          <option value="Lirow e Ana Lídia">Lirow e Ana Lídia</option>
+          <option value="Luciano e Vanessa">Luciano e Vanessa</option>
+          <option value="Manoel e Juliana">Manoel e Juliana</option>
+          <option value="Maurício e Kele">Maurício e Kele</option>
+          <option value="Moisés e Sônia">Moisés e Sônia</option>
+          <option value="Olinto e Dilma">Olinto e Dilma</option>
+          <option value="Osmar e Vanessa">Osmar e Vanessa</option>
+          <option value="Pedro e Léa">Pedro e Léa</option>
+          <option value="Roberto e Waldete">Roberto e Waldete</option>
+          <option value="Rodrigo e Carolina">Rodrigo e Carolina</option>
+          <option value="Romário e Priscila">Romário e Priscila</option>
+          <option value="Rubens e Luciane">Rubens e Luciane</option>
+          <option value="Samuel e Ariadne">Samuel e Ariadne</option>
+          <option value="Vagner e Dilma">Vagner e Dilma</option>
+          <option value="Washington e Carla">Washington e Carla</option>
+          <option value="Wilson e Rosemeire">Wilson e Rosemeire</option>
+        </select>
       </div>
 
       <button type="button" class="btn btn-success btn-lg btn-block" (click)="onSubmit()"

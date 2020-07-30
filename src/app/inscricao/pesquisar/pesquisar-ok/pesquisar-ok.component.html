@@ -13,20 +13,24 @@
       <table class="table table-striped">
         <tbody>
           <tr>
+            <td>Encontro</td>
+            <td>{{ data.evento }}</td>
+          </tr>
+          <tr>
             <td>Nome</td>
             <td>{{ data.nome }}</td>
           </tr>
           <tr>
-            <td>Nome do Cônjuge</td>
+            <td>Nome do par</td>
             <td>{{ data.conjuge }}</td>
           </tr>
           <tr>
             <td>Tipo de Assento</td>
-            <td>{{ data.cadeira == 'Simples' ? 'Individual' : 'Casal' }}</td>
+            <td>{{ data.cadeira == 'Simples' ? 'Individual' : 'Dupla' }}</td>
           </tr>
           <tr>
-            <td>Encontro</td>
-            <td>{{ data.evento }}</td>
+            <td>Area</td>
+            <td>{{ data.area }}</td>
           </tr>
         </tbody>
       </table>

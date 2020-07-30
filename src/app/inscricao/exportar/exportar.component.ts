@@ -94,9 +94,7 @@ export class ExportarComponent implements OnInit {
         cadeira: 'Cadeira',
         email: 'E-mail',
         nome: 'Nome',
-        sobrenome: 'Sobrenome',
-        conjuge: 'Conjuge',
-        area: 'Area',
+        conjuge: 'Nome do par',
         confirmado: 'Confirmado'
       };
 

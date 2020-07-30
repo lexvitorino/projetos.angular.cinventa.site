@@ -33,6 +33,7 @@ export class CadastroComponent implements OnInit {
       cadeira: [{ value: '', disabled: true }, [Validators.required]],
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       nome: [{ value: '', disabled: true }, [Validators.required]],
+      area: [{ value: '', disabled: true }, [Validators.required]],
       conjuge: [''],
     });
 
@@ -63,6 +64,9 @@ export class CadastroComponent implements OnInit {
       } else if (this.formData.controls['email'].invalid) {
         this.toastr.error('E-mail não preenchida ou inválido!', 'Inscrições para os cultos!');
         return;
+      } else if (this.formData.controls['area'].invalid) {
+        this.toastr.error('Area não preenchida!', 'Inscrições para os cultos!');
+        return;
       }
     }
 
@@ -72,7 +76,8 @@ export class CadastroComponent implements OnInit {
       cadeira: this.formData.controls['cadeira'].value,
       nome: this.formData.controls['nome'].value,
       conjuge: this.formData.controls['conjuge'].value,
-      email: this.formData.controls['email'].value
+      email: this.formData.controls['email'].value,
+      area: this.formData.controls['area'].value
     };
 
     this.service.create(data).subscribe(res => {
@@ -119,5 +124,6 @@ export class CadastroComponent implements OnInit {
     }
     this.formData.controls['nome'].enable();
     this.formData.controls['email'].enable();
+    this.formData.controls['area'].enable();
   }
 }

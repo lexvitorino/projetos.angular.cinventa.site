@@ -8,13 +8,12 @@
     <div class="alert-erro">
       <i class="fas fa-times"></i>
       <span>Não foi possível realizar sua inscrição!</span>
-      <span *ngFor="let m of message.errors">{{m}}</span>
     </div>
     <hr>
     <div class="alert alert-warning" role="alert">
-      Não se preocupe e tente novamente clicando no botão abaixo.
+      <span *ngFor="let m of message.errors">{{m}}</span>
     </div>
-    <button type="button" class="btn btn-secondary btn-lg btn-block" routerLink="/cadastro">Tente Novamente</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" routerLink="/">IR PARA HOME</button>
   </div>
   <app-footer></app-footer>
 </div>
