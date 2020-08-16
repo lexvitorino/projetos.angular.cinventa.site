@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row top top-sucesso">
+    <div class="col logo-comuna"><img src="assets/img/logo-comuna.png" alt="Logo Comuna Ermelino" class="img-thumbnail">
+    </div>
+  </div>
+  <!-- Conteudo-->
+  <div class="container form-login">
+    <form autocomplete="off" [formGroup]="formData" (ngSubmit)="onSubmit()">
+      <h2 class="text-center">Faça login</h2>
+      <div class="form-group">
+        <!-- Nome Email -->
+        <input type="email" name="email" class="form-control tx-cad" placeholder="Digite seu email"
+          formControlName="email" autofocus>
+      </div>
+      <div class="form-group">
+        <!-- Nome Password -->
+        <input type="password" name="password" class="form-control tx-cad" placeholder="Digite sua senha"
+          formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-success btn-lg btn-block">LOGAR</button>
+    </form>
+  </div>
+  <app-footer></app-footer>
+</div>

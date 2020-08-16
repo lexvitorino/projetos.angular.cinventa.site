@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { InscricaoService } from '../../inscricao/inscricao.service';
 import { ExcelUtils } from '../../shared/excel.util';
 import { environment } from './../../../environments/environment';
+import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-exportar',
@@ -13,11 +14,7 @@ import { environment } from './../../../environments/environment';
 export class ExportarComponent implements OnInit {
 
   formData: FormGroup;
-  data: Inscricao;
-  datas: any[] = [];
-  eventoModel: EventoModel;
   eventos: any[] = [];
-  baseUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,8 +23,6 @@ export class ExportarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.baseUrl = environment.base_url;
-
     this.formData = this.formBuilder.group({
       evento: ['', [Validators.required]],
       data: ['', [Validators.required]],
@@ -35,37 +30,22 @@ export class ExportarComponent implements OnInit {
 
     this.service.eventos().subscribe(resp => {
       if (resp.data) {
-        this.eventoModel = resp;
-        resp.data.forEach((e: Evento) => {
-          if (this.datas.findIndex(dt => dt.id === e.data) < 0) {
-            const f = e.data.split('-');
-            const x = { id: e.data, value: `${f[2]}/${f[1]}/${f[0]}` };
-            this.datas.push(x);
-          }
-          this.formData.controls['data'].setValue(this.datas[0]['id']);
-          this.getEventos();
-        });
+        if (!resp.message.hasError) {
+          this.eventos = resp.data.filter((c: Evento) => +c.ativo === 1);
+        }
       }
     });
   }
 
-  public getEventos() {
-    this.eventos = [];
-    this.formData.controls['evento'].setValue('');
-    this.eventoModel.data.filter(c => c.data === this.formData.controls['data'].value).forEach(e => {
-      this.eventos.push({ id: e.chave, value: e.descricao });
-    });
-  }
-
   public exportar() {
-    this.data = Object.assign({}, this.data, this.formData.value);
 
-    if (!this.data.evento || this.data.evento === '') {
+    const evento = this.eventos.find((c: Evento) => c.chave === this.formData.controls['evento'].value);
+    if (!evento) {
       this.toastr.warning('Encontro não informado', 'Inscrições para os cultos!');
       return;
     }
 
-    this.service.byEventoAndData(this.data.evento, this.data.data).subscribe(resp => {
+    this.service.byEventoAndData(evento.chave, evento.data).subscribe(resp => {
 
       const dados = [];
       resp.data.map((r: Inscricao) => {
@@ -83,7 +63,8 @@ export class ExportarComponent implements OnInit {
           sobrenome: r.sobrenome,
           conjuge: r.conjuge,
           area: r.area,
-          confirmado: r.confirmado === '1' ? 'SIM' : 'NAO'
+          confirmado: r.confirmado === '1' ? 'SIM' : 'NAO',
+          idade: r.idade
         });
       });
 
@@ -95,7 +76,8 @@ export class ExportarComponent implements OnInit {
         email: 'E-mail',
         nome: 'Nome',
         conjuge: 'Nome do par',
-        confirmado: 'Confirmado'
+        confirmado: 'Confirmado',
+        idade: 'Idade'
       };
 
       const options = {
@@ -103,7 +85,7 @@ export class ExportarComponent implements OnInit {
         headerDictionary
       };
 
-      ExcelUtils.exportAsExcelFile(dados, this.data.evento, options);
+      ExcelUtils.exportAsExcelFile(dados, evento.chave, options);
     });
   }
 }

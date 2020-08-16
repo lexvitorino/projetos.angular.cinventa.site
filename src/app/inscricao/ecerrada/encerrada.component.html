@@ -1,0 +1,17 @@
+<div class="load sala-espera">
+  <div class="se-aguarde">
+    <div class="row">
+      <span class="posicao">
+        {{ status }}
+      </span>
+    </div>
+    <div class="row cp-data">
+      <span *ngIf="data">
+        As inscrições para o próximo encontro às {{hora}} do dia {{data}}
+      </span>
+    </div>
+    <div class="row cp-botao">
+      <button type="button" class="btn btn-outline-light btn-lg" routerLink="/">Ir para home</button>
+    </div>
+  </div>
+</div>

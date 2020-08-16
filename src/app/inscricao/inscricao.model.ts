@@ -8,11 +8,6 @@ interface InscricoesModel {
   message: Message;
 }
 
-interface EventoModel {
-  data: Evento[];
-  message: Message;
-}
-
 interface VagasValidasModel {
   data: VagasValidas;
   message: Message;
@@ -31,23 +26,10 @@ interface Inscricao {
   supervisor: string;
   lider: string;
   confirmado: string;
-}
-
-interface Evento {
-  id: number;
-  data: string;
-  chave: string;
-  descricao: string;
-  simples: number;
-  dupla: number;
+  idade: number;
 }
 
 interface VagasValidas {
   inscricoes: number;
   limite: number;
-}
-
-interface Message {
-  hasError: boolean;
-  errors: string[];
 }

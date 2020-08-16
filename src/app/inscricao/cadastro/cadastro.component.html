@@ -1,3 +1,5 @@
+<app-encerrada *ngIf="!eventoStatus.ok" [status]="eventoStatus.message"></app-encerrada>
+
 <div class="container-fluid">
   <app-header topHeaderCss="top-cadastro" headerCss="tit-cadastro" headerTitle="Inscrição">
   </app-header>
@@ -20,12 +22,12 @@
       <div class="form-group" *ngIf="hasEvento">
         <!-- Selecionar tipo de cadeira -->
         <label>Selecione o tipo de cadeira</label>
-        <div class="custom-control custom-radio custom-control-inline">
+        <div class="custom-control custom-radio custom-control-inline" *ngIf="evento.dispSimples > 0">
           <input type="radio" id="customRadioInline1" name="cadeira" formControlName="cadeira" value="Simples"
             class="custom-control-input" (change)="onChangeCadeira()">
           <label class="custom-control-label" for="customRadioInline1">Individual</label>
         </div>
-        <div class="custom-control custom-radio custom-control-inline">
+        <div class="custom-control custom-radio custom-control-inline" *ngIf="evento.dispDupla > 0">
           <input type="radio" id="customRadioInline2" name="cadeira" formControlName="cadeira" value="Dupla"
             class="custom-control-input" (change)="onChangeCadeira()">
           <label class="custom-control-label" for="customRadioInline2">Dupla</label>
@@ -45,6 +47,11 @@
         <!-- Nome Email -->
         <input type="email" name="email" class="form-control tx-cad" placeholder="Digite seu email"
           formControlName="email">
+      </div>
+      <div class="form-group" *ngIf="!hasConjuge && hasEvento && hasCadeira && hasIdade">
+        <!-- Nome Idade -->
+        <input type="number" name="idade" class="form-control tx-cad" placeholder="Digite sua idade"
+          formControlName="idade">
       </div>
       <div class="form-group">
         <!-- Selecionar area -->

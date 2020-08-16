@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <app-header topHeaderCss="top-cadastro" headerCss="tit-cadastro" headerTitle="Eventos ( INATIVOS )">
+  </app-header>
+  <!-- Conteudo-->
+  <div class="container">
+    <button type="button" class="btn btn-link mt-4 mb-2" routerLink="/evento">Voltar a eventos</button>
+    <div class="table-responsive-sm">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 10%">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col" style="width: 12%">Data Evento</th>
+            <th scope="col" style="width: 15%">Cadeiras</th>
+            <th scope="col" style="width: 30%">Inscrições</th>
+            <th scope="col" style="width: 10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of eventos">
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.descricao }}</td>
+            <td>{{ item.dataFmt }}</td>
+            <td>
+              <i class="fas fa-user mr-2"></i>{{ item.simples }}
+              <i class="fas fa-user-friends ml-2 mr-2"></i>{{ item.dupla }}
+            </td>
+            <td>
+              <i class="fas fa-play mr-2"></i> {{ item.ativoAsFmt }}
+              <i class="fas fa-stop ml-2 mr-2"></i> {{ item.inativoAsFmt }}
+            </td>
+            <td>
+              <a style="cursor: pointer;" (click)="active(item.id)" title="Excluir">
+                <i class="fas fa-check"></i>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="!eventos || eventos.length === 0">
+            <td colspan="6">
+              Não existem itens inativos
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Fim Conteudo-->
+  <app-footer></app-footer>
+</div>

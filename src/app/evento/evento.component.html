@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <app-header topHeaderCss="top-cadastro" headerCss="tit-cadastro" headerTitle="Eventos">
+  </app-header>
+  <!-- Conteudo-->
+  <div class="container">
+    <button type="button" class="btn btn-primary mt-4 mb-2" (click)="create(template)">Cadastrar</button>
+    <button type="button" class="btn btn-link mt-4 mb-2" routerLink="/eventoInativo">Eventos inativos</button>
+    <div class="table-responsive-sm">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 10%">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col" style="width: 12%">Data Evento</th>
+            <th scope="col" style="width: 15%">Cadeiras</th>
+            <th scope="col" style="width: 30%">Inscrições</th>
+            <th scope="col" style="width: 10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of eventos">
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.descricao }}</td>
+            <td>{{ item.dataFmt }}</td>
+            <td>
+              <i class="fas fa-user mr-2"></i>{{ item.simples }}
+              <i class="fas fa-user-friends ml-2 mr-2"></i>{{ item.dupla }}
+            </td>
+            <td>
+              <i class="fas fa-play mr-2"></i> {{ item.ativoAsFmt }}
+              <i class="fas fa-stop ml-2 mr-2"></i> {{ item.inativoAsFmt }}
+            </td>
+            <td>
+              <a class="mr-2" style="cursor: pointer;" (click)="edit(template, item.id)" title="Editar">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a style="cursor: pointer;" (click)="delete(item.id)" title="Excluir">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="!eventos || eventos.length === 0">
+            <td colspan="6">
+              Não existem itens ativos
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Fim Conteudo-->
+  <app-footer></app-footer>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Cadastro de Evento</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form autocomplete="off" [formGroup]="formData" (ngSubmit)="onSubmit()">
+      <div class="container form-cadastro">
+        <div class="form-group">
+          <!-- Descrição -->
+          <input type="text" name="descricao" class="form-control tx-cad" placeholder="Digite a descrição"
+            formControlName="descricao">
+        </div>
+        <div class="form-group">
+          <!-- Data -->
+          <input type="text" name="dataFmt" class="form-control tx-cad" placeholder="Digite a data do encontro"
+            formControlName="dataFmt" mask="00/00/0000" [dropSpecialCharacters]="false">
+        </div>
+        <div class="input-group mb-3">
+          <!-- Simples -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-user mr-2"></i>
+            </span>
+          </div>
+          <input type="number" name="simples" class="form-control tx-cad"
+            placeholder="Digite a quantidade de vagas para cadeiras simples" formControlName="simples">
+        </div>
+        <div class="input-group mb-3">
+          <!-- Dupla -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-user-friends ml-2 mr-2"></i>
+            </span>
+          </div>
+          <input type="text" name="dupla" class="form-control tx-cad"
+            placeholder="Digite a quatidade de vagas para cadeiras dupla" formControlName="dupla">
+        </div>
+        <div class="input-group mb-3">
+          <!-- Inicia em -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-play ml-2 mr-2"></i>
+            </span>
+          </div>
+          <input type="text" name="ativoAsFmt" class="form-control tx-cad"
+            placeholder="Data/Hora que irá liberar as inscrições" formControlName="ativoAsFmt" mask="00/00/0000 00:00"
+            [dropSpecialCharacters]="false">
+        </div>
+        <div class="input-group mb-3">
+          <!-- Termina em -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-stop ml-2 mr-2"></i>
+            </span>
+          </div>
+          <input type="text" name="inativoAsFmt" class="form-control tx-cad"
+            placeholder="Data/Hora que irá encerrar as inscrições" formControlName="inativoAsFmt"
+            mask="00/00/0000 00:00" [dropSpecialCharacters]="false">
+        </div>
+        <div class="form-check">
+          <!-- Solicita Idade -->
+          <input type="checkbox" id="solIdade" name="solIdade" class="form-check-input tx-cad"
+            formControlName="solIdade">
+          <label class="form-check-label" for="solIdade">Solicitar a idade ao se cadastrar</label>
+        </div>
+        <div class="form-check">
+          <!-- Solicita Ativo -->
+          <input type="checkbox" id="ativo" name="ativo" class="form-check-input tx-cad" formControlName="ativo">
+          <label class="form-check-label" for="ativo">Evento ativo</label>
+        </div>
+      </div>
+      <div class="modal-footer mt-3">
+        <button type="submit" class="btn btn-primary">Confirmar!</button>
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -12,10 +12,18 @@ export class CadastroComponent implements OnInit {
 
   formData: FormGroup;
   data: Inscricao;
+
+  evento: Evento;
   eventos: Evento[] = [];
+  eventoStatus = {
+    ok: true,
+    message: ''
+  };
+
   hasConjuge = false;
   hasEvento = false;
   hasCadeira = false;
+  hasIdade = false;
 
   constructor(
     private router: Router,
@@ -30,16 +38,19 @@ export class CadastroComponent implements OnInit {
       evento: ['', [Validators.required]],
       data: [{ value: '', disabled: true }, [Validators.required]],
       dataFmt: [{ value: '', disabled: true }],
-      cadeira: [{ value: '', disabled: true }, [Validators.required]],
+      cadeira: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       nome: [{ value: '', disabled: true }, [Validators.required]],
       area: [{ value: '', disabled: true }, [Validators.required]],
+      idade: [{ value: '', disabled: true }],
       conjuge: [''],
     });
 
-    this.service.eventos().subscribe(resp => {
+    this.service.getActivosToInc().subscribe(resp => {
       if (resp.data) {
         this.eventos = resp.data;
+        this.eventoStatus.ok = resp.data.length > 0;
+        this.eventoStatus.message = 'Incrições Encerradas';
       }
     });
   }
@@ -48,9 +59,6 @@ export class CadastroComponent implements OnInit {
     if (this.formData.invalid) {
       if (this.formData.controls['evento'].invalid) {
         this.toastr.error('Evento não preenchido!', 'Inscrições para os cultos!');
-        return;
-      } else if (this.formData.controls['cadeira'].invalid) {
-        this.toastr.error('Cadeira não preenchida!', 'Inscrições para os cultos!');
         return;
       } else if (this.formData.controls['data'].invalid) {
         this.toastr.error('Data não preenchida!', 'Inscrições para os cultos!');
@@ -70,6 +78,12 @@ export class CadastroComponent implements OnInit {
       }
     }
 
+    if ((+this.evento.sol_idade === 1) &&
+      (this.formData.controls['idade'].value === '' || this.formData.controls['idade'].value === 0)) {
+      this.toastr.error('Idade não preenchida!', 'Inscrições para os cultos!');
+      return;
+    }
+
     const data = {
       evento: this.formData.controls['evento'].value,
       data: this.formData.controls['data'].value,
@@ -77,7 +91,8 @@ export class CadastroComponent implements OnInit {
       nome: this.formData.controls['nome'].value,
       conjuge: this.formData.controls['conjuge'].value,
       email: this.formData.controls['email'].value,
-      area: this.formData.controls['area'].value
+      area: this.formData.controls['area'].value,
+      idade: this.formData.controls['idade'].value
     };
 
     this.service.create(data).subscribe(res => {
@@ -96,22 +111,27 @@ export class CadastroComponent implements OnInit {
     if (this.formData.controls['evento'].value !== '') {
       this.hasEvento = true;
 
-      const e = this.eventos.find(c => c.chave === (this.formData.controls['evento'].value));
+      this.evento = this.eventos.find(c => c.chave === (this.formData.controls['evento'].value));
 
       this.formData.controls['dataFmt'].setValue('');
       this.formData.controls['data'].setValue('');
 
-      if (e) {
-        const dataFmt = e.data.split('-');
+      if (this.evento) {
+        const dataFmt = this.evento.data.split('-');
         this.formData.controls['dataFmt'].setValue(`${dataFmt[2]}/${dataFmt[1]}/${dataFmt[0]}`);
-        this.formData.controls['data'].setValue(e.data);
+        this.formData.controls['data'].setValue(this.evento.data);
       }
     }
 
+    this.formData.controls['cadeira'].setValue('');
     this.formData.controls['cadeira'].disable();
     if (this.formData.controls['evento'].value !== '') {
       this.formData.controls['cadeira'].enable();
     }
+
+    this.hasIdade = false;
+    this.hasConjuge = false;
+    this.hasCadeira = false;
   }
 
   onChangeCadeira() {
@@ -122,8 +142,26 @@ export class CadastroComponent implements OnInit {
     if (this.formData.controls['cadeira'].value === 'Dupla') {
       this.hasConjuge = true;
     }
+    this.hasIdade = false;
+    if (+this.evento.sol_idade === 1 && this.formData.controls['cadeira'].value === 'Simples') {
+      this.hasIdade = true;
+    }
+
+    if (this.formData.controls['cadeira'].value === 'Simples') {
+      if (+this.evento.dispSimples <= 0) {
+        this.eventoStatus.ok = false;
+        this.eventoStatus.message = `Não existe mais vagas disponíveis para cadeira ${this.formData.controls['cadeira'].value}`;
+      }
+    } else if (this.formData.controls['cadeira'].value === 'Dupla') {
+      if (+this.evento.dispDupla <= 0) {
+        this.eventoStatus.ok = false;
+        this.eventoStatus.message = `Não existe mais vagas disponíveis para cadeira ${this.formData.controls['cadeira'].value}`;
+      }
+    }
+
     this.formData.controls['nome'].enable();
     this.formData.controls['email'].enable();
     this.formData.controls['area'].enable();
+    this.formData.controls['idade'].enable();
   }
 }

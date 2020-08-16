@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row top top-sucesso">
+    <div class="col logo-comuna"><img src="assets/img/logo-comuna.png" alt="Logo Comuna Ermelino" class="img-thumbnail">
+    </div>
+  </div>
+  <!-- Conteudo-->
+  <div class="container">
+    <ul class="list-group mt-4">
+      <a class="btn btn-success mb-2" style="color: #fff" (click)="navigate('/evento')">
+        Evento
+      </a>
+      <hr />
+      <a class="btn btn-success mb-2" style="color: #fff" (click)="navigate('/pesquisar')">
+        Pesquisar
+      </a>
+      <a class="btn btn-success mb-2" style="color: #fff" (click)="navigate('/cadastro')">
+        Cadastrar
+      </a>
+      <a class="btn btn-success mb-2" style="color: #fff" (click)="navigate('/confirmar')">
+        Confirmar
+      </a>
+      <a class="btn btn-success" style="color: #fff" (click)="navigate('/exportar')">
+        Exportar
+      </a>
+      <hr />
+      <a class="btn btn-info mb-4" style="color: #fff" (click)="logout()">
+        SAIR
+      </a>
+    </ul>
+  </div>
+  <app-footer></app-footer>
+</div>
