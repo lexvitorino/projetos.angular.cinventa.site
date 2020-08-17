@@ -1,10 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ErrorService } from '../app.error';
-import { LoginService } from '../login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +11,21 @@ import { LoginService } from '../login/login.service';
 export class EventoService {
 
   constructor(
-    private http: HttpClient,
-    private loginService: LoginService
+    private http: HttpClient
   ) {
   }
 
   public save(data: any): Observable<any> {
-    const bearer = 'Bearer ' + this.loginService.getToken();
-    const headers = new HttpHeaders({ Authorization: bearer });
 
     if (data.id != null && data.id > 0) {
       return this.http
-        .put<any>(`${environment.service_url}/event/${data.id}`, data, { headers })
+        .put<any>(`${environment.service_url}/event/${data.id}`, data)
         .pipe(
           catchError(ErrorService.handleError)
         );
     } else {
       return this.http
-        .post<any>(`${environment.service_url}/event/create`, data, { headers })
+        .post<any>(`${environment.service_url}/event/create`, data)
         .pipe(
           catchError(ErrorService.handleError)
         );
@@ -37,20 +33,16 @@ export class EventoService {
   }
 
   public delete(id: any): Observable<any> {
-    const bearer = 'Bearer ' + this.loginService.getToken();
-    const headers = new HttpHeaders({ Authorization: bearer });
     return this.http
-      .delete<any>(`${environment.service_url}/event/${id}`, { headers })
+      .delete<any>(`${environment.service_url}/event/${id}`)
       .pipe(
         catchError(ErrorService.handleError)
       );
   }
 
   public active(id: any): Observable<any> {
-    const bearer = 'Bearer ' + this.loginService.getToken();
-    const headers = new HttpHeaders({ Authorization: bearer });
     return this.http
-      .delete<any>(`${environment.service_url}/event/active/${id}`, { headers })
+      .delete<any>(`${environment.service_url}/event/active/${id}`)
       .pipe(
         catchError(ErrorService.handleError)
       );

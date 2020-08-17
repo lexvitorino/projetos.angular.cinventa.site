@@ -5,6 +5,7 @@ import { InscricaoService } from '../../inscricao/inscricao.service';
 import { ExcelUtils } from '../../shared/excel.util';
 import { environment } from './../../../environments/environment';
 import { Event } from '@angular/router';
+import { EventoService } from '../../evento/evento.service';
 
 @Component({
   selector: 'app-exportar',
@@ -19,7 +20,8 @@ export class ExportarComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private service: InscricaoService
+    private service: InscricaoService,
+    private eventoService: EventoService
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,7 @@ export class ExportarComponent implements OnInit {
       data: ['', [Validators.required]],
     });
 
-    this.service.eventos().subscribe(resp => {
+    this.eventoService.get().subscribe(resp => {
       if (resp.data) {
         if (!resp.message.hasError) {
           this.eventos = resp.data.filter((c: Evento) => +c.ativo === 1);

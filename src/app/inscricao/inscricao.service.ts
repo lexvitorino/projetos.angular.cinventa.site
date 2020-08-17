@@ -39,30 +39,6 @@ export class InscricaoService {
       );
   }
 
-  public eventos(): Observable<any> {
-    return this.http
-      .get<any>(`${environment.service_url}/event`)
-      .pipe(
-        catchError(ErrorService.handleError)
-      );
-  }
-
-  public getActivosToInc(): Observable<any> {
-    return this.http
-      .get<any>(`${environment.service_url}/event/getActivosToInc`)
-      .pipe(
-        catchError(ErrorService.handleError)
-      );
-  }
-
-  public nextEvent(): Observable<any> {
-    return this.http
-      .get<any>(`${environment.service_url}/event/proximoEvento`)
-      .pipe(
-        catchError(ErrorService.handleError)
-      );
-  }
-
   public confirmar(id: number): Observable<any> {
     return this.http
       .put<any>(`${environment.service_url}/inscription/confirmar/`, { id })

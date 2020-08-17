@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { InscricaoService } from '../../inscricao/inscricao.service';
+import { EventoService } from '../../evento/evento.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -29,7 +30,8 @@ export class CadastroComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private service: InscricaoService
+    private service: InscricaoService,
+    private eventoService: EventoService
   ) { }
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class CadastroComponent implements OnInit {
       conjuge: [''],
     });
 
-    this.service.getActivosToInc().subscribe(resp => {
+    this.eventoService.getActivosToInc().subscribe(resp => {
       if (resp.data) {
         this.eventos = resp.data;
         this.eventoStatus.ok = resp.data.length > 0;
@@ -142,8 +144,9 @@ export class CadastroComponent implements OnInit {
     if (this.formData.controls['cadeira'].value === 'Dupla') {
       this.hasConjuge = true;
     }
+
     this.hasIdade = false;
-    if (+this.evento.sol_idade === 1 && this.formData.controls['cadeira'].value === 'Simples') {
+    if (+this.evento.sol_idade === 1) {
       this.hasIdade = true;
     }
 

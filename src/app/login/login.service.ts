@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ErrorService } from '../app.error';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class LoginService {
   ) {
   }
 
-  public auth(email, password): Observable<AuthModel> {
+  public auth(email: string, password: string): Observable<AuthModel> {
     return this.http
       .post<AuthModel>(`${environment.service_url}/session/auth`, { email, password })
       .pipe(
@@ -28,7 +28,7 @@ export class LoginService {
       );
   }
 
-  public setToken(token): void {
+  public setToken(token: string): void {
     sessionStorage.setItem(`${environment.prefix}.token`, token);
   }
 

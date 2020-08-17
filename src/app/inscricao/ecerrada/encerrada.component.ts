@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { InscricaoService } from '../inscricao.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { EventoService } from '../../evento/evento.service';
 
 @Component({
   selector: 'app-encerrada',
@@ -13,11 +13,11 @@ export class EncerradaComponent implements OnInit {
   hora: string;
 
   constructor(
-    private service: InscricaoService
+    private eventoService: EventoService
   ) { }
 
   ngOnInit() {
-    this.service.nextEvent().subscribe(resp => {
+    this.eventoService.nextEvent().subscribe(resp => {
       if (!resp.message.hasError) {
         if (resp.data.proxEvento) {
           const dh = resp.data.proxEvento.split(' ');
