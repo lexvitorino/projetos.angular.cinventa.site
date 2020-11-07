@@ -32,16 +32,48 @@
             class="custom-control-input" (change)="onChangeCadeira()">
           <label class="custom-control-label" for="customRadioInline2">Dupla</label>
         </div>
+        <div class="custom-control custom-radio custom-control-inline" *ngIf="evento.dispTripla > 0">
+          <input type="radio" id="customRadioInline3" name="cadeira" formControlName="cadeira" value="Tripla"
+            class="custom-control-input" (change)="onChangeCadeira()">
+          <label class="custom-control-label" for="customRadioInline3">Tripla</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline" *ngIf="evento.dispQuadrupla > 0">
+          <input type="radio" id="customRadioInline4" name="cadeira" formControlName="cadeira" value="Quadrupla"
+            class="custom-control-input" (change)="onChangeCadeira()">
+          <label class="custom-control-label" for="customRadioInline4">Quadrupla</label>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="hasEvento && hasCadeira && hasPeriodo">
+        <!-- Nome Idade -->
+        <select type="number" name="periodo" class="form-control tx-cad" placeholder="Selecione o período"
+          formControlName="periodo">
+          <option value="">Selecione o período</option>
+          <option [value]="d" *ngFor="let d of periodos">{{d}}</option>
+        </select>
       </div>
       <div class="form-group" *ngIf="hasEvento && hasCadeira">
         <!-- Nome -->
-        <input type="text" name="nome" class="form-control tx-cad" placeholder="Digite seu nome completo"
-          formControlName="nome">
+        <input type="text" name="nome" class="form-control tx-cad" placeholder="Digite seu nome" formControlName="nome">
+      </div>
+      <div class="form-group" *ngIf="hasEvento && hasCadeira">
+        <!-- Sobrenome -->
+        <input type="text" name="sobrenome" class="form-control tx-cad" placeholder="Digite seu sobrenome"
+          formControlName="sobrenome">
       </div>
       <div class="form-group" *ngIf="hasConjuge && hasEvento && hasCadeira">
         <!-- Nome Conjuge -->
         <input type="text" name="Conjuge" class="form-control tx-cad" placeholder="Digite o nome do seu par"
           formControlName="conjuge">
+      </div>
+      <div class="form-group" *ngIf="hasAcompanhante3 && hasEvento && hasCadeira">
+        <!-- Nome Acompanhate 3 -->
+        <input type="text" name="acompanhante3" class="form-control tx-cad" placeholder="Digite o nome do acompanhate 3"
+          formControlName="acompanhante3">
+      </div>
+      <div class="form-group" *ngIf="hasAcompanhante4 && hasEvento && hasCadeira">
+        <!-- Nome Acompanhate 4 -->
+        <input type="text" name="acompanhante4" class="form-control tx-cad" placeholder="Digite o nome do acompanhate 4"
+          formControlName="acompanhante4">
       </div>
       <div class="form-group" *ngIf="hasEvento && hasCadeira">
         <!-- Nome Email -->

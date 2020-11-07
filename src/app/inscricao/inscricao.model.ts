@@ -22,11 +22,14 @@ interface Inscricao {
   nome: string;
   sobrenome: string;
   conjuge: string;
+  acompanhante3: string;
+  acompanhante4: string;
   area: string;
   supervisor: string;
   lider: string;
   confirmado: string;
   idade: number;
+  periodo: string;
 }
 
 interface VagasValidas {

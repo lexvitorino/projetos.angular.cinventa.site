@@ -59,11 +59,14 @@ export class ExportarComponent implements OnInit {
           id: r.id,
           evento: r.evento,
           data: dt,
+          periodo: r.periodo,
           cadeira: r.cadeira,
           email: r.email,
           nome: r.nome,
           sobrenome: r.sobrenome,
           conjuge: r.conjuge,
+          acompanhante3: r.acompanhante3,
+          acompanhante4: r.acompanhante4,
           area: r.area,
           confirmado: r.confirmado === '1' ? 'SIM' : 'NAO',
           idade: r.idade
@@ -75,9 +78,12 @@ export class ExportarComponent implements OnInit {
         evento: 'Evento',
         data: 'Data',
         cadeira: 'Cadeira',
+        periodo: 'Período',
         email: 'E-mail',
         nome: 'Nome',
         conjuge: 'Nome do par',
+        acompanhante3: 'Acompanhante 3',
+        acompanhante4: 'Acompanhante 4',
         confirmado: 'Confirmado',
         idade: 'Idade'
       };

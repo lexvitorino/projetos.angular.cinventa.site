@@ -80,18 +80,35 @@
               <i class="fas fa-user mr-2"></i>
             </span>
           </div>
-          <input type="number" name="simples" class="form-control tx-cad"
-            placeholder="Digite a quantidade de vagas para cadeiras simples" formControlName="simples">
-        </div>
-        <div class="input-group mb-3">
+          <input type="number" name="simples" class="form-control tx-cad mr-1" placeholder="Simples"
+            formControlName="simples">
           <!-- Dupla -->
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">
               <i class="fas fa-user-friends ml-2 mr-2"></i>
             </span>
           </div>
-          <input type="text" name="dupla" class="form-control tx-cad"
-            placeholder="Digite a quatidade de vagas para cadeiras dupla" formControlName="dupla">
+          <input type="text" name="dupla" class="form-control tx-cad" placeholder="Dupla" formControlName="dupla">
+        </div>
+        <div class="input-group mb-3">
+          <!-- Tripla -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-user mr-2"></i>
+              <i class="fas fa-user-friends ml-2 mr-2"></i>
+            </span>
+          </div>
+          <input type="number" name="tripla" class="form-control tx-cad mr-1" placeholder="Tripla"
+            formControlName="tripla">
+          <!-- Quadrupla -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fas fa-user-friends ml-2 mr-2"></i>
+              <i class="fas fa-user-friends ml-2 mr-2"></i>
+            </span>
+          </div>
+          <input type="text" name="quadrupla" class="form-control tx-cad" placeholder="Quadrupla"
+            formControlName="quadrupla">
         </div>
         <div class="input-group mb-3">
           <!-- Inicia em -->
@@ -116,6 +133,17 @@
             mask="00/00/0000 00:00" [dropSpecialCharacters]="false">
         </div>
         <div class="form-check">
+          <!-- Solicita Periodo -->
+          <input type="checkbox" id="solPeriodo" name="solPeriodo" class="form-check-input tx-cad"
+            formControlName="solPeriodo">
+          <label class="form-check-label" for="solPeriodo">Solicitar período ao se cadastrar</label>
+        </div>
+        <div class="form-group">
+          <!-- Periodos -->
+          <input type="text" name="periodos" class="form-control tx-cad"
+            placeholder="Digite os períodos separados por virgula" formControlName="periodos">
+        </div>
+        <div class="form-check">
           <!-- Solicita Idade -->
           <input type="checkbox" id="solIdade" name="solIdade" class="form-check-input tx-cad"
             formControlName="solIdade">
@@ -126,6 +154,13 @@
           <input type="checkbox" id="ativo" name="ativo" class="form-check-input tx-cad" formControlName="ativo">
           <label class="form-check-label" for="ativo">Evento ativo</label>
         </div>
+        <!--
+        <div class="form-group">
+           Crianças de
+          <input type="text" name="criancas_de" class="form-control tx-cad"
+            placeholder="Digite as idades separadas por virgula" formControlName="criancas_de">
+        </div>
+        -->
       </div>
       <div class="modal-footer mt-3">
         <button type="submit" class="btn btn-primary">Confirmar!</button>

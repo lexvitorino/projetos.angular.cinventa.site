@@ -7,7 +7,10 @@
     </div>
     <div class="row cp-data">
       <span *ngIf="data">
-        As inscrições para o próximo encontro às {{hora}} do dia {{data}}
+        inscrições para o próximo encontro {{evento}} às {{hora}} do dia {{data}}
+      </span>
+      <span *ngIf="warning">
+        {{warning}}
       </span>
     </div>
     <div class="row cp-botao">

@@ -31,9 +31,13 @@ export class EventoComponent implements OnInit {
       dataFmt: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       simples: ['', [Validators.required]],
       dupla: ['', [Validators.required]],
+      tripla: ['', [Validators.required]],
+      quadrupla: ['', [Validators.required]],
       ativoAsFmt: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
       inativoAsFmt: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
       solIdade: [true],
+      solPeriodo: [true],
+      periodos: ['']
     });
 
     this.service.get().subscribe(resp => {
@@ -50,10 +54,14 @@ export class EventoComponent implements OnInit {
     this.formData.controls['dataFmt'].setValue(null);
     this.formData.controls['simples'].setValue(null);
     this.formData.controls['dupla'].setValue(null);
+    this.formData.controls['tripla'].setValue(null);
+    this.formData.controls['quadrupla'].setValue(null);
     this.formData.controls['ativoAsFmt'].setValue(null);
     this.formData.controls['inativoAsFmt'].setValue(null);
     this.formData.controls['solIdade'].setValue(false);
+    this.formData.controls['solPeriodo'].setValue(false);
     this.formData.controls['ativo'].setValue(true);
+    this.formData.controls['periodos'].setValue(null);
     this.modalRef = this.modalService.show(template);
   }
 
@@ -68,10 +76,14 @@ export class EventoComponent implements OnInit {
     this.formData.controls['dataFmt'].setValue(this.data.dataFmt);
     this.formData.controls['simples'].setValue(this.data.simples);
     this.formData.controls['dupla'].setValue(this.data.dupla);
+    this.formData.controls['tripla'].setValue(this.data.tripla);
+    this.formData.controls['quadrupla'].setValue(this.data.quadrupla);
     this.formData.controls['ativoAsFmt'].setValue(this.data.ativoAsFmt);
     this.formData.controls['inativoAsFmt'].setValue(this.data.inativoAsFmt);
     this.formData.controls['solIdade'].setValue((+this.data.sol_idade === 1) ? true : false);
+    this.formData.controls['solPeriodo'].setValue((+this.data.sol_periodo === 1) ? true : false);
     this.formData.controls['ativo'].setValue((+this.data.ativo === 1) ? true : false);
+    this.formData.controls['periodos'].setValue(this.data.periodos);
     this.modalRef = this.modalService.show(template);
   }
 
@@ -95,11 +107,20 @@ export class EventoComponent implements OnInit {
       } else if (this.formData.controls['dupla'].invalid) {
         this.toastr.error('Dupla não preenchida!', 'Evento para os encontros!');
         return;
+      } else if (this.formData.controls['tripla'].invalid) {
+        this.toastr.error('Tripla não preenchida!', 'Evento para os encontros!');
+        return;
+      } else if (this.formData.controls['quadrupla'].invalid) {
+        this.toastr.error('Quadrupla não preenchida!', 'Evento para os encontros!');
+        return;
       } else if (this.formData.controls['ativoAsFmt'].invalid) {
         this.toastr.error('Ativo as não preenchida!', 'Evento para os encontros!');
         return;
       } else if (this.formData.controls['inativoAsFmt'].invalid) {
         this.toastr.error('Inativo as não preenchida!', 'Evento para os encontros!');
+        return;
+      } else if (this.formData.controls['sol_periodo'].value === 1 && this.formData.controls['periodos'].value === '') {
+        this.toastr.error('Período não preenchido!', 'Evento para os encontros!');
         return;
       }
     }
@@ -111,10 +132,14 @@ export class EventoComponent implements OnInit {
       dataFmt: this.formData.controls['dataFmt'].value,
       simples: this.formData.controls['simples'].value,
       dupla: this.formData.controls['dupla'].value,
+      tripla: this.formData.controls['tripla'].value,
+      quadrupla: this.formData.controls['quadrupla'].value,
       ativoAsFmt: this.formData.controls['ativoAsFmt'].value,
       inativoAsFmt: this.formData.controls['inativoAsFmt'].value,
       sol_idade: this.formData.controls['solIdade'].value ? 1 : 0,
-      ativo: this.formData.controls['ativo'].value ? 1 : 0
+      sol_periodo: this.formData.controls['solPeriodo'].value ? 1 : 0,
+      ativo: this.formData.controls['ativo'].value ? 1 : 0,
+      periodos: this.formData.controls['periodos'].value
     };
 
     this.service.save(data).subscribe(res => {
